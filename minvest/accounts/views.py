@@ -98,4 +98,4 @@ def login_user(request):
 @authentication_classes ((TokenAuthentication,))
 @permission_classes ((IsAuthenticated,))
 def get_consumer_id(request):
-    return Response(data='test', status=status.HTTP_200_OK)
+    return Response(data={'foo':request.user.username}, status=status.HTTP_200_OK)
