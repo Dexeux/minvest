@@ -1,0 +1,23 @@
+<resources>
+    <string name="app_name">minvest</string>
+
+    <!-- Login Screen -->
+    <string name="email_name_field">Email/Display Name:</string>
+    <string name="password_field">Password:</string>
+    <string name="login">Login</string>
+    <string name="register"><u>Sign Up For Minvest</u></string>
+    <string name="forgot_password"><u>Forgot your password?</u></string>
+    <string name="error_text">Invalid Username/Password Combination</string>
+
+    <!-- Register account -->
+    <string name="create_account"><u>Account Creation</u></string>
+    <string name="username_field">Username: </string>
+    <string name="email_field">Email: </string>
+    <string name="submit_password_field">Password: </string>
+    <string name="confirm_password">Confirm Password: </string>
+    <string name="register_button">Register</string>
+    <string name="invalid_username">Invalid Username</string>
+    <string name="invalid_password">Invalid Password</string>
+    <string name="invalid_password_confirm">Passwords do not match</string>
+    <string name="invalid_email">Invalid Email</string>
+</resources>
