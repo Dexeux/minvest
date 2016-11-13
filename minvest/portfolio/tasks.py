@@ -47,7 +47,7 @@ def set_ETF_data():
     sorted_list = sorted(output_dict, key=lambda k: k['fields']['dividend_yield'], reverse=True)
 
     for etf in sorted_list[:5]:
-        ETF.objects.create(portfolio=Portfolio.objects.get(pk=1),
+        etf.objects.create(portfolio=Portfolio.objects.get(pk=1),
                            name=etf['fields']['name'],
                            symbol=etf['fields']['symbol'],
                            investment_style=etf['fields'][1],
