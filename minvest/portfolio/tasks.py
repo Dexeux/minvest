@@ -9,18 +9,18 @@ import datetime
 def set_ETF_data():
     etf_data = []
 
-    for index, ETF in enumerate(settings.ETF_MASTER_LIST):
+    for index, etf_symbol in enumerate(settings.ETF_MASTER_LIST):
         etf_dict = {
             'model': 'portfolio.ETF',
             'pk': index + 1,
             'fields': {},
         }
 
-        fund = Share(ETF)
+        fund = Share(etf_symbol)
 
         fields = {
             'name': fund.get_name(),
-            'symbol': ETF,
+            'symbol': etf_symbol,
             'last_trade': fund.get_price(),
             'dividend_yield': fund.get_dividend_yield(),
             'absolute_change': fund.get_change(),
@@ -47,13 +47,13 @@ def set_ETF_data():
     sorted_list = sorted(output_dict, key=lambda k: k['fields']['dividend_yield'], reverse=True)
 
     for etf in sorted_list[:5]:
-        etf.objects.create(portfolio=Portfolio.objects.get(pk=1),
+        ETF.objects.create(portfolio=Portfolio.objects.get(pk=1),
                            name=etf['fields']['name'],
                            symbol=etf['fields']['symbol'],
                            investment_style=etf['fields'][1],
                            last_trade=etf['fields']['last_trade'],
                            dividend_yield=etf['fields']['dividend_yield'],
-                           absolute_change=etf['fields']['absolute_change'],
+                           absolute_chan    ge=etf['fields']['absolute_change'],
                            percentage_change=etf['fields']['percentage_change'],
                            currency='USD',
                            last_updated=datetime.datetime.now())
