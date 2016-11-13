@@ -2,6 +2,8 @@ import json
 
 from yahoo_finance import Share
 from django.conf import settings
+from portfolio.models import ETF, Portfolio
+import datetime
 
 
 def set_ETF_data():
@@ -44,5 +46,14 @@ def set_ETF_data():
 
     sorted_list = sorted(output_dict, key=lambda k: k['fields']['dividend_yield'], reverse=True)
 
-    for etf in sorted_list[:3]:
-        pass
+    for etf in sorted_list[:5]:
+        ETF.objects.create(portfolio=Portfolio.objects.get(pk=1),
+                           name=etf['fields']['name'],
+                           symbol=etf['fields']['symbol'],
+                           investment_style=etf['fields'][1],
+                           last_trade=etf['fields']['last_trade'],
+                           dividend_yield=etf['fields']['dividend_yield'],
+                           absolute_change=etf['fields']['absolute_change'],
+                           percentage_change=etf['fields']['percentage_change'],
+                           currency='USD',
+                           last_updated=datetime.datetime.now())
