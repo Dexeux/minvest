@@ -100,7 +100,7 @@ def login_user(request):
 @permission_classes ((IsAuthenticated,))
 def get_account_data(request):
     user = User.objects.get(username=request.user.username)
-    user.update_investment()
+    user.update_investment_value()
     account_id = user.account_id
     r = requests.get('http://api.reimaginebanking.com/accounts/{0}?key={1}'.format(account_id, settings.NESSIE_API_KEY))
     account_data = json.loads(r.text)
