@@ -9,9 +9,9 @@ from portfolio.models import Portfolio
 class CustomUser(AbstractUser):
     customer_id = models.TextField(max_length=30, blank=True, default='')
     account_id = models.TextField(max_length=30, blank=True, default='')
-    book_value = models.FloatField(default=0)
-    portfolio = models.ForeignKey(Portfolio, default=None)
-    investment_value = models.FloatField(default=0)
+    book_value = models.FloatField(default=0.0)
+    portfolio = models.ForeignKey(Portfolio, null=True, default=None)
+    investment_value = models.FloatField(default=0.0)
     share_amount = models.IntegerField(default=0)
 
     def update_investment_value(self):
