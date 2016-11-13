@@ -15,8 +15,9 @@ class CustomUser(AbstractUser):
     share_amount = models.IntegerField(default=0)
 
     def update_investment_value(self):
-        self.investment_value = self.portfolio.share_price * self.share_amount
-        self.save()
+        if self.portfolio:
+            self.investment_value = self.portfolio.share_price * self.share_amount
+            self.save()
 
     def deposit(self, value):
         self.update_investment_value()
