@@ -104,6 +104,9 @@ def get_account_data(request):
     account_id = user.account_id
     r = requests.get('http://api.reimaginebanking.com/accounts/{0}?key={1}'.format(account_id, settings.NESSIE_API_KEY))
     account_data = json.loads(r.text)
+    percent_change = 0
+    if user.book_value:
+        percent_change = (user.investment_value - user.book_value)/user.book_value
     response_data = [
         {
             'name':'Account balance:',
@@ -123,7 +126,7 @@ def get_account_data(request):
         },
         {
             'name': 'Percent change:',
-            'value': (user.investment_value - user.book_value)/user.book_value,
+            'value': percent_change,
         }
     ]
     return Response(data=response_data, status=status.HTTP_200_OK)
