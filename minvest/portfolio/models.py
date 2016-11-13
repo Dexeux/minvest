@@ -79,4 +79,3 @@ class ETF(models.Model):
         self.dividend_yield = fund.get_dividend_yield()
         self.last_updated = datetime.now()
         self.save()
-

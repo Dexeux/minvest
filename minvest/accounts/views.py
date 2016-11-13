@@ -101,16 +101,31 @@ def get_account_data(request):
     user = User.objects.get(name=request.user.username)
     user.update_investment()
     account_id = user.account_id
-    r = requests.get('http://api.reimaginebanking.com/accounts/{0}'.format(account_id))
+    r = requests.get('http://api.reimaginebanking.com/accounts/{0}?key={1}'.format(account_id, settings.NESSIE_API_KEY))
     account_data = json.loads(r.text)
-    data = {
-        'Account balance:': account_data['balance'],
-        'Portfolio value:': user.investment_value,
-        'Book value': user.book_value,
-        'Change in dollars:': user.investment_value - user.book_value,
-        'Percent change:': (user.investment_value - user.book_value)/user.book_value,
-    }
-    return Response(data=data, status=status.HTTP_200_OK)
+    response_data = [
+        {
+            'name':'Account balance:',
+            'value': account_data['balance']
+        },
+        {
+            'name': 'Portfolio value:',
+            'value': user.investment_value,
+        },
+        {
+            'name': 'Book value',
+            'value': user.book_value,
+        },
+        {
+            'name': 'Change in dollars:',
+            'value': user.investment_value - user.book_value,
+        },
+        {
+            'name': 'Percent change:',
+            'value': (user.investment_value - user.book_value)/user.book_value,
+        }
+    ]
+    return Response(data=response_data, status=status.HTTP_200_OK)
 
 
 @api_view(['POST'])
@@ -120,6 +135,7 @@ def deposit(request):
     data = json.loads(request.body)
     user = User.objects.get(name=request.user.username)
     value = abs(data.get('value'))
+    #r = requests.post('http://api.reimaginebanking.com/accounts/{0}/transfers')
     if value:
         user.deposit(value)
     response_data = {
