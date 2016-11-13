@@ -149,16 +149,17 @@ def deposit(request):
         'transaction_date': datetime.datetime.now().strftime('%Y-%m-%d'),
         'description': 'deposit'
     }
-    r = requests.post('http://api.reimaginebanking.com/accounts/{0}/transfers'.format(user.account_id),
+    r = requests.post('http://api.reimaginebanking.com/accounts/{0}/transfers?key={1}'.format(user.account_id, settings.NESSIE_API_KEY),
                       headers=headers,
                       data=json.dumps(nessie_data))
     print r.text
-    if value:
+    if value and r.status_code == '201':
         user.deposit(value)
-    response_data = {
-        'message': 'Success'
-    }
-    return Response(data=response_data, status=status.HTTP_202_ACCEPTED)
+        response_data = {
+            'message': 'Success'
+        }
+        return Response(data=response_data, status=status.HTTP_202_ACCEPTED)
+    return Response(data={'message': 'error'}, status=status.HTTP_404_NOT_FOUND)
 
 
 @api_view(['POST'])
@@ -180,9 +181,10 @@ def withdraw(request):
                       headers=headers,
                       data=json.dumps(nessie_data))
     print r.text
-    if value:
+    if value and r.status_code == '201':
         user.withdraw(value)
-    response_data = {
-        'message': 'Success'
-    }
-    return Response(data=response_data, status=status.HTTP_202_ACCEPTED)
+        response_data = {
+            'message': 'Success'
+        }
+        return Response(data=response_data, status=status.HTTP_202_ACCEPTED)
+    return Response(data={'message': 'error'}, status=status.HTTP_404_NOT_FOUND)
