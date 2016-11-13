@@ -95,7 +95,44 @@ def login_user(request):
 
 
 @api_view(['GET'])
-@authentication_classes((TokenAuthentication,))
-@permission_classes((IsAuthenticated,))
-def test_session(request):
-    return Response(data={'message':'Success'}, status=status.HTTP_200_OK)
+@authentication_classes ((TokenAuthentication,))
+@permission_classes ((IsAuthenticated,))
+def get_account_data(request):
+    user = User.objects.get(name=request.user.username)
+    account_id = user.account_id
+    r = requests.get('http://api.reimaginebanking.com/accounts/{0}'.format(account_id))
+    account_data = json.loads(r.text)
+    data = {
+        'Account balance:': account_data['balance'],
+    }
+    return Response(data=data, status=status.HTTP_200_OK)
+
+
+@api_view(['POST'])
+@authentication_classes ((TokenAuthentication,))
+@permission_classes ((IsAuthenticated,))
+def deposit(request):
+    data = json.loads(request.body)
+    user = User.objects.get(name=request.user.username)
+    value = abs(data.get('value'))
+    if value:
+        user.deposit(value)
+    response_data = {
+        'message': 'Success'
+    }
+    return Response(data=response_data, status=status.HTTP_202_ACCEPTED)
+
+
+@api_view(['POST'])
+@authentication_classes ((TokenAuthentication,))
+@permission_classes ((IsAuthenticated,))
+def withdraw(request):
+    data = json.loads(request.body)
+    user = User.objects.get(name=request.user.username)
+    value = abs(data.get('value'))
+    if value:
+        user.withdraw(value)
+    response_data = {
+        'message': 'Success'
+    }
+    return Response(data=response_data, status=status.HTTP_202_ACCEPTED)

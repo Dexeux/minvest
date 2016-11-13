@@ -130,3 +130,52 @@ STATIC_URL = '/static/'
 
 # NESSIE API KEy
 NESSIE_API_KEY = '2cfd9e99a29ba1479a654765e2c2e521'
+
+ETF_MASTER_LIST = [
+    'AADR',
+    'AAXJ',
+    'ACIM',
+    'ACTX',
+    'ACWF',
+    'ACWI',
+    'ACWV',
+    'ACWX',
+    'ADRA',
+    'ADRD',
+    'ADRE',
+    'ADRU',
+    'ADZ',
+    'AFK',
+    'AFTY',
+    'AGA',
+    'AGF',
+    'AGG',
+    'AGGY',
+    'AGND',
+    'AGQ',
+    'AGZ',
+    'AGZD',
+    'AIA',
+    'AIRR',
+    'ALD',
+    'ALFA',
+    'ALFI',
+    'ALTS',
+    'ALTY',
+    'AMJ',
+]
+
+RISK_LEVELS = [
+        ('0', 'LOW'),
+        ('1', 'MED'),
+        ('2', 'HIGH')
+    ]
+
+CURRENCIES = [
+    ('CAD', 'Canadian Dollar'),
+    ('USD', 'United States Dollar'),
+    ('EUR', 'Euro'),
+    ('GBP', 'Great British Pound'),
+    ('SFR', 'Swiss Franc'),
+    ('YEN', 'Japanese Yen')
+]
