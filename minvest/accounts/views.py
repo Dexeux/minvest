@@ -11,6 +11,7 @@ import requests
 from django.conf import settings
 
 import json
+import datetime
 
 User = get_user_model()
 
@@ -132,10 +133,21 @@ def get_account_data(request):
 @authentication_classes ((TokenAuthentication,))
 @permission_classes ((IsAuthenticated,))
 def deposit(request):
+    headers = {'Content-Type': 'application/json'}
     data = json.loads(request.body)
     user = User.objects.get(name=request.user.username)
     value = abs(data.get('value'))
-    #r = requests.post('http://api.reimaginebanking.com/accounts/{0}/transfers')
+    nessie_data = {
+        'medium': 'balance',
+        'payee_id': settings.NESSIE_INVESTMENT_ACCOUNT,
+        'amount': value,
+        'transaction_date': datetime.datetime.now().strftime('%Y-%m-%d'),
+        'description': 'deposit'
+    }
+    r = requests.post('http://api.reimaginebanking.com/accounts/{0}/transfers'.format(user.account_id),
+                      headers=headers,
+                      data=json.dumps(nessie_data))
+    print r.text
     if value:
         user.deposit(value)
     response_data = {
@@ -148,9 +160,21 @@ def deposit(request):
 @authentication_classes ((TokenAuthentication,))
 @permission_classes ((IsAuthenticated,))
 def withdraw(request):
+    headers = {'Content-Type': 'application/json'}
     data = json.loads(request.body)
     user = User.objects.get(name=request.user.username)
     value = abs(data.get('value'))
+    nessie_data = {
+        'medium': 'balance',
+        'payee_id': user.account_id,
+        'amount': value,
+        'transaction_date': datetime.datetime.now().strftime('%Y-%m-%d'),
+        'description': 'deposit'
+    }
+    r = requests.post('http://api.reimaginebanking.com/accounts/{0}/transfers'.format(settings.NESSIE_INVESTMENT_ACCOUNT),
+                      headers=headers,
+                      data=json.dumps(nessie_data))
+    print r.text
     if value:
         user.withdraw(value)
     response_data = {
