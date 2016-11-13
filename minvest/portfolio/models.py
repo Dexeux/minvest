@@ -43,12 +43,11 @@ class Portfolio(models.Model):
         ETF.objects.create(portfolio=self,
                            name=etf['fields'].get('name'),
                            symbol=etf['fields'].get('symbol'),
-                           investment_type=etf['']
+                           investment_type=etf[''],
                            last_trade=etf['fields'].get('last_trade'),
                            dividend_yield=etf['fields'].get('dividend_yield'),
                            absolute_change=etf['fields'].get('absolute_name'),
-                           percent_change=etf['field'].get('percent_change'),
-                           )
+                           percent_change=etf['field'].get('percent_change'))
 
 
 class ETFManager(models.Manager):
