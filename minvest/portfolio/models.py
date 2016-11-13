@@ -4,6 +4,7 @@ from datetime import datetime
 from django.db import models
 from django.core.exceptions import ValidationError
 from django.conf import settings
+from django.utils import timezone
 
 from yahoo_finance import Share
 
@@ -67,7 +68,7 @@ class ETF(models.Model):
     absolute_change = models.FloatField()
     percentage_change = models.TextField(validators=[valid_pct])
     currency = models.TextField(choices=settings.CURRENCIES, default='USD')
-    last_updated = models.DateTimeField(default=datetime.now)
+    last_updated = models.DateTimeField(default=timezone.now)
 
     objects = ETFManager
 
@@ -77,5 +78,5 @@ class ETF(models.Model):
         self.absolute_change = fund.get_change()
         self.percentage_change = fund.get_percent_change()
         self.dividend_yield = fund.get_dividend_yield()
-        self.last_updated = datetime.now()
+        self.last_updated = timezone.now()
         self.save()

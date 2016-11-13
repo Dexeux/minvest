@@ -4,6 +4,7 @@ from yahoo_finance import Share
 from django.conf import settings
 from portfolio.models import ETF, Portfolio
 import datetime
+from django.utils import timezone
 
 
 def set_ETF_data():
@@ -56,4 +57,4 @@ def set_ETF_data():
                            absolute_change=etf['fields']['absolute_change'],
                            percentage_change=etf['fields']['percentage_change'],
                            currency='USD',
-                           last_updated=datetime.datetime.now())
+                           last_updated=timezone.now())
