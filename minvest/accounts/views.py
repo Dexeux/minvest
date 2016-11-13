@@ -9,6 +9,7 @@ from rest_framework.authentication import TokenAuthentication
 from rest_framework.permissions import IsAuthenticated
 import requests
 from django.conf import settings
+from portfolio.models import Portfolio
 
 import json
 import datetime
@@ -28,7 +29,8 @@ def create_user(request):
                 user = User.objects.get_by_natural_key(data['username'])
             except User.DoesNotExist:
                 user = User.objects.create_user(username=data['username'],
-                                                password=data['password'])
+                                                password=data['password'],
+                                                portfolio=Portfolio.objects.get(pk=1))
                 create_customer_data = {
                     'first_name': 'Josh',
                     'last_name': 'Kwok',
@@ -165,7 +167,7 @@ def deposit(request):
 def withdraw(request):
     headers = {'Content-Type': 'application/json'}
     data = json.loads(request.body)
-    user = User.objects.get(name=request.user.username)
+    user = User.objects.get(username=request.user.username)
     value = abs(data.get('value'))
     nessie_data = {
         'medium': 'balance',
