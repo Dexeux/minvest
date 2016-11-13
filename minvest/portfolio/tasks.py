@@ -53,7 +53,7 @@ def set_ETF_data():
                            investment_style=etf['fields'][1],
                            last_trade=etf['fields']['last_trade'],
                            dividend_yield=etf['fields']['dividend_yield'],
-                           absolute_chan    ge=etf['fields']['absolute_change'],
+                           absolute_change=etf['fields']['absolute_change'],
                            percentage_change=etf['fields']['percentage_change'],
                            currency='USD',
                            last_updated=datetime.datetime.now())
