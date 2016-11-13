@@ -50,7 +50,7 @@ def set_ETF_data():
         ETF.objects.create(portfolio=Portfolio.objects.get(pk=1),
                            name=etf['fields']['name'],
                            symbol=etf['fields']['symbol'],
-                           investment_style=etf['fields'][1],
+                           investment_style=1,
                            last_trade=etf['fields']['last_trade'],
                            dividend_yield=etf['fields']['dividend_yield'],
                            absolute_change=etf['fields']['absolute_change'],
