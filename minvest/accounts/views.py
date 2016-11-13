@@ -99,11 +99,16 @@ def login_user(request):
 @permission_classes ((IsAuthenticated,))
 def get_account_data(request):
     user = User.objects.get(name=request.user.username)
+    user.update_investment()
     account_id = user.account_id
     r = requests.get('http://api.reimaginebanking.com/accounts/{0}'.format(account_id))
     account_data = json.loads(r.text)
     data = {
         'Account balance:': account_data['balance'],
+        'Portfolio value:': user.investment_value,
+        'Book value': user.book_value,
+        'Change in dollars:': user.investment_value - user.book_value,
+        'Percent change:': (user.investment_value - user.book_value)/user.book_value,
     }
     return Response(data=data, status=status.HTTP_200_OK)
 
