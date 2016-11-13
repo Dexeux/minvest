@@ -95,7 +95,7 @@ def login_user(request):
 
 
 @api_view(['GET'])
-@authentication_classes ((TokenAuthentication,))
-@permission_classes ((IsAuthenticated,))
-def get_consumer_id(request):
-    return Response(data={'foo':request.user.username}, status=status.HTTP_200_OK)
+@authentication_classes((TokenAuthentication,))
+@permission_classes((IsAuthenticated,))
+def test_session(request):
+    return Response(data={'message':'Success'}, status=status.HTTP_200_OK)
