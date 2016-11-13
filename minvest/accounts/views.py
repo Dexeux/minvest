@@ -153,7 +153,7 @@ def deposit(request):
                       headers=headers,
                       data=json.dumps(nessie_data))
     print r.text
-    if value and r.status_code.startswith('2'):
+    if value and str(r.status_code).startswith('2'):
         user.deposit(value)
         response_data = {
             'message': 'Success'
@@ -181,7 +181,7 @@ def withdraw(request):
                       headers=headers,
                       data=json.dumps(nessie_data))
     print r.text
-    if value and r.status_code.startswith('2'):
+    if value and str(r.status_code).startswith('2'):
         user.withdraw(value)
         response_data = {
             'message': 'Success'
