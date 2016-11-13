@@ -25,7 +25,7 @@ SECRET_KEY = '64fz=z=_v15$zbrd3@9f%!xbenkk^ud14onz_(rp1^hhm^i0z5'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['173.255.232.42']
 
 AUTH_USER_MODEL = 'accounts.CustomUser'
 
