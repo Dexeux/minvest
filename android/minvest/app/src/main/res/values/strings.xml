@@ -1,8 +1,10 @@
 <resources>
-    <string name="app_name">minvest</string>
+    <string name="app_name">Minvest</string>
 
+    <!-- Errors -->
+    <string name="network_error">No network connection available</string>
     <!-- Login Screen -->
-    <string name="email_name_field">Email/Display Name:</string>
+    <string name="email_name_field">Display Name:</string>
     <string name="password_field">Password:</string>
     <string name="login">Login</string>
     <string name="register"><u>Sign Up For Minvest</u></string>
@@ -20,4 +22,18 @@
     <string name="invalid_password">Invalid Password</string>
     <string name="invalid_password_confirm">Passwords do not match</string>
     <string name="invalid_email">Invalid Email</string>
+    <string name="register_error">Register failed</string>
+
+    <!-- Database -->
+    <string name="session_id">session_identifier</string>
+
+    <array name="drawer">
+        <item>Account</item>
+        <item>Analytics</item>
+        <item>Quit</item>
+    </array>
+    <string name="open">Open Drawer</string>
+    <string name="close">Close Drawer</string>
+    <string name="loading">Loading...</string>
+    <string name="transfer">Transfer Amount</string>
 </resources>

@@ -20,7 +20,7 @@
             android:layout_marginBottom="20dp"
             android:padding="10dp"
             android:layout_gravity="center_horizontal"
-            android:src="@drawable/logo"/>
+            android:src="@drawable/bull"/>
 
         <EditText
             android:id="@+id/username_field"
@@ -28,13 +28,6 @@
             android:layout_height="wrap_content"
             android:hint="@string/username_field"
             android:inputType="textPersonName"
-            android:maxLines="1"/>
-        <EditText
-            android:id="@+id/email_field"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="@string/email_field"
-            android:inputType="textEmailAddress"
             android:maxLines="1"/>
         <EditText
             android:id="@+id/password_field"
